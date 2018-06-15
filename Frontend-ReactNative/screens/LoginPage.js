@@ -1,33 +1,18 @@
 import React from 'react';
-import { Component } from 'react';
-import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
-
 import axios from 'axios';
-
-function getLoginInfo() {
-  axios.post('http://beenthere.us-east-2.elasticbeanstalk.com/login', {
-      userid: 1,
-      password: 'password'
-    })
-    .then(function (response) {
-      console.log(response);
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-}
+import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
 
 // var button = document.querySelector(".login");
 // Login.addEventListener("click", getLoginInfo);
 // var button = document.querySelector(".button");
 // button.addEventListener("click", getLoginInfo);
 
-export class Login extends Component {
+export class LoginPage extends React.Component {
   constructor(props) {
     super(props);
-    
+
     this.state = {
-      username: '',
+      userid: '',
       password: '',
     };
   }
@@ -36,21 +21,28 @@ export class Login extends Component {
 // var input = document.querySelector(".input");
 // var name = document.querySelector(".name");
 // var password = document.querySelector(".password");
-  
-  onLogin() {
 
-    const { username, password } = this.state;
-    onPress={this.getLoginInfo}
-    // Alert.alert('Credentials', `${username} + ${password}`);
+  onLogin() {
+    const { userid, password } = this.state;
+    axios.post('http://beenthere.us-east-2.elasticbeanstalk.com/login', {
+      userid: this.state.userid,
+      password: this.state.password,
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
   }
 
   render() {
     return (
       <View style={styles.container}>
         <TextInput
-          value={this.state.username}
-          onChangeText={(username) => this.setState({ username })}
-          placeholder={'Username'}
+          value={this.state.userid}
+          onChangeText={(userid) => this.setState({ userid })}
+          placeholder={'Userid'}
           style={styles.input}
         />
         <TextInput
@@ -60,7 +52,7 @@ export class Login extends Component {
           secureTextEntry={true}
           style={styles.input}
         />
-        
+
         <Button
           title={'Login'}
           style={styles.input}
