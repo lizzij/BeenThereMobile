@@ -12,7 +12,8 @@ export class RegisterPage extends React.Component {
     super(props);
 
     this.state = {
-      status: 'Waiting For Input',
+      status: 'waiting for input',
+      userid: '',
       username: '',
       password: '',
     };
@@ -24,14 +25,13 @@ export class RegisterPage extends React.Component {
 // var password = document.querySelector(".password");
 
   onRegister() {
-    const { username, password } = this.state;
+    var self = this;
     http.post('/register', {
       username: this.state.username,
       password: this.state.password,
     })
     .then(function (response) {
-      console.log(response.data['status']);
-      console.log('Your ID is: ' + response.data['userid'])
+      self.setState({status: response.data['status'], userid: response.data['userid']})
     })
     .catch(function (error) {
       console.log(error);
@@ -42,6 +42,8 @@ export class RegisterPage extends React.Component {
     return (
       <View style={styles.container}>
         <Text h4> {this.state.status} </Text>
+        <Text h4> {'Your ID is: ' + this.state.userid} </Text>
+        <Text h4> </Text>
         <TextInput
           onChangeText={(username) => this.setState({ username })}
           placeholder={'Username'}

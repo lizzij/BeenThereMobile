@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
+import { Alert, Button, TextInput, View, StyleSheet, Text } from 'react-native';
 
 const serverUrl = 'http://beenthere.us-east-2.elasticbeanstalk.com';
 const http = axios.create({
@@ -12,7 +12,7 @@ export class LoginPage extends React.Component {
     super(props);
 
     this.state = {
-      status: '',
+      status: 'waiting for input',
       userid: '',
       password: '',
     };
@@ -24,13 +24,13 @@ export class LoginPage extends React.Component {
 // var password = document.querySelector(".password");
 
   onLogin() {
-    const { userid, password } = this.state;
+    var self = this;
     http.post('/login', {
       userid: this.state.userid,
       password: this.state.password,
     })
     .then(function (response) {
-      console.log(response.data['status']);
+      self.setState({status: response.data['status']})
     })
     .catch(function (error) {
       console.log(error);
@@ -40,6 +40,8 @@ export class LoginPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text h4> {this.state.status} </Text>
+        <Text h4> </Text>
         <TextInput
           onChangeText={(userid) => this.setState({ userid })}
           placeholder={'Userid'}
