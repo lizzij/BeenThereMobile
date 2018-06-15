@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
+import { Alert, Button, TextInput, View, StyleSheet, Text } from 'react-native';
 
 const serverUrl = 'http://beenthere.us-east-2.elasticbeanstalk.com';
 const http = axios.create({
@@ -12,7 +12,7 @@ export class RegisterPage extends React.Component {
     super(props);
 
     this.state = {
-      status: '',
+      status: 'Waiting For Input',
       username: '',
       password: '',
     };
@@ -41,6 +41,7 @@ export class RegisterPage extends React.Component {
   render() {
     return (
       <View style={styles.container}>
+        <Text h4> {this.state.status} </Text>
         <TextInput
           onChangeText={(username) => this.setState({ username })}
           placeholder={'Username'}
