@@ -24,7 +24,7 @@ export class RegistrationPage extends React.Component {
       console.log(error);
     });
   }
-
+  
   render() {
     return (
       <View>
