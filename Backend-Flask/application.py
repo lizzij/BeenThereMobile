@@ -35,7 +35,7 @@ def login():
         credential = cur.fetchall()
         if not credential:
             return jsonify(status = "user not found")
-        elif credential[0] == password:
+        elif credential[0][0] == password:
             return jsonify(status = "login success")
         else:
             return jsonify(status = "invalid password")
