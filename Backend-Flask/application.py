@@ -32,7 +32,7 @@ def login():
         userid = request.json['userid']
         password = request.json['password']
         cur.execute("SELECT password FROM users WHERE userid = '{}'".format(userid))
-        credential = cur.fetchone()
+        credential = cur.fetchall()
         if not credential:
             return jsonify(status = "user not found")
         elif credential[0] == password:
