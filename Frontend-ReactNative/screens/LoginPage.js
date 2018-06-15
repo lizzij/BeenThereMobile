@@ -2,16 +2,17 @@ import React from 'react';
 import axios from 'axios';
 import { Alert, Button, TextInput, View, StyleSheet } from 'react-native';
 
-// var button = document.querySelector(".login");
-// Login.addEventListener("click", getLoginInfo);
-// var button = document.querySelector(".button");
-// button.addEventListener("click", getLoginInfo);
+const serverUrl = 'http://beenthere.us-east-2.elasticbeanstalk.com';
+const http = axios.create({
+  baseURL: serverUrl,
+});
 
 export class LoginPage extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      status: '',
       userid: '',
       password: '',
     };
@@ -24,12 +25,12 @@ export class LoginPage extends React.Component {
 
   onLogin() {
     const { userid, password } = this.state;
-    axios.post('http://beenthere.us-east-2.elasticbeanstalk.com/login', {
+    http.post('/login', {
       userid: this.state.userid,
       password: this.state.password,
     })
     .then(function (response) {
-      console.log(response);
+      console.log(response.data['status']);
     })
     .catch(function (error) {
       console.log(error);
