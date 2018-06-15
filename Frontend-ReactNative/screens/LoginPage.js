@@ -40,13 +40,11 @@ export class LoginPage extends React.Component {
     return (
       <View style={styles.container}>
         <TextInput
-          value={this.state.userid}
           onChangeText={(userid) => this.setState({ userid })}
           placeholder={'Userid'}
           style={styles.input}
         />
         <TextInput
-          value={this.state.password}
           onChangeText={(password) => this.setState({ password })}
           placeholder={'Password'}
           secureTextEntry={true}
