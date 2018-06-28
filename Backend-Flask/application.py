@@ -20,6 +20,8 @@ mysql.init_app(application)
 # Application Route #
 #####################
 
+# user authentication用session解决问题
+
 @application.route('/')
 def home():
     return jsonify(status = "hello world")
@@ -37,8 +39,11 @@ def login():
             return jsonify(status = "user not found")
         elif credential[0][0] == password:
             return jsonify(status = "login success")
+            # session在这里开始
         else:
             return jsonify(status = "invalid password")
+
+# primary key和用户id分开，表越少越好
 
 @application.route('/register', methods=['POST'])
 def register():
@@ -51,11 +56,11 @@ def register():
         db.commit()
         cur.execute("SELECT userid FROM users ORDER BY userid DESC LIMIT 1")
         userid = cur.fetchone()[0]
-        cur.execute("CREATE TABLE {} (timestamp DATETIME PRIMARY KEY DEFAULT CURRENT_TIMESTAMP, senderid INTEGER, message TEXT);".format(str(userid) + "_inbox"))
-        cur.execute("CREATE TABLE {} (timestamp DATETIME PRIMARY KEY DEFAULT CURRENT_TIMESTAMP, receiverid INTEGER, message TEXT);".format(str(userid) + "_outbox"))
-        cur.execute("CREATE TABLE {} (userid INTEGER PRIMARY KEY, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);".format(str(userid) + "_friends"))
-        cur.execute("CREATE TABLE {} (articleid INTEGER PRIMARY KEY, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);".format(str(userid) + "_saved_articles"))
-        cur.execute("CREATE TABLE {} (articleid INTEGER PRIMARY KEY, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);".format(str(userid) + "_published_articles"))
+        # cur.execute("CREATE TABLE {} (timestamp DATETIME PRIMARY KEY DEFAULT CURRENT_TIMESTAMP, senderid INTEGER, message TEXT);".format(str(userid) + "_inbox"))
+        # cur.execute("CREATE TABLE {} (timestamp DATETIME PRIMARY KEY DEFAULT CURRENT_TIMESTAMP, receiverid INTEGER, message TEXT);".format(str(userid) + "_outbox"))
+        # cur.execute("CREATE TABLE {} (userid INTEGER PRIMARY KEY, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);".format(str(userid) + "_friends"))
+        # cur.execute("CREATE TABLE {} (articleid INTEGER PRIMARY KEY, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);".format(str(userid) + "_saved_articles"))
+        # cur.execute("CREATE TABLE {} (articleid INTEGER PRIMARY KEY, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);".format(str(userid) + "_published_articles"))
         db.commit()
         return jsonify(status = "register success", userid = userid)
 
@@ -93,8 +98,7 @@ def send_message(receiverid):
         cur = db.cursor()
         senderid = request.json['senderid']
         message = request.json['message']
-        cur.execute("INSERT INTO {} (receiverid, message) VALUES({}, '{}')".format(senderid + "_outbox", int(receiverid), message))
-        cur.execute("INSERT INTO {} (senderid, message) VALUES({}, '{}')".format(receiverid + "_inbox", int(senderid), message))
+        cur.execute("INSERT INTO messages (senderid, receiverid, message) VALUES({}, {}, '{}')".format(int(senderid), int(receiverid), message))
         db.commit()
         return jsonify(status = "message sent")
 
@@ -105,9 +109,9 @@ def get_message(userid):
         cur = db.cursor()
         cur.execute("SELECT username FROM users WHERE userid = {}".format(userid))
         username = cur.fetchone()
-        cur.execute("SELECT timestamp, senderid, message FROM {}".format(userid + '_inbox'))
+        cur.execute("SELECT timestamp, senderid, message FROM messages WHERE receiverid = {}".format(int(userid)))
         inbox = cur.fetchall()
-        cur.execute("SELECT timestamp, receiverid, message FROM {}".format(userid + '_outbox'))
+        cur.execute("SELECT timestamp, receiverid, message FROM messages WHERE senderid = {}".format(int(userid)))
         outbox = cur.fetchall()
         if username:
             return jsonify(status = "retrieval success", inbox = inbox, outbox = outbox)

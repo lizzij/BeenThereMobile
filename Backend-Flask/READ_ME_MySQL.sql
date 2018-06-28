@@ -15,17 +15,31 @@ mysql> USE beenthere;
 mysql> SELECT DATABASE();
 mysql> SHOW TABLES;
 
-# initial table creation:
-mysql> CREATE TABLE users (userid INTEGER PRIMARY KEY AUTO_INCREMENT,
-    -> level INTEGER DEFAULT 1, experience INTEGER DEFAULT 0,
-    -> coins INTEGER DEFAULT 0, username TEXT, password TEXT,
-    -> timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);
+# primary key和用户id分开，表越少越好
 
-mysql> CREATE TABLE articles (articleid INTEGER PRIMARY KEY AUTO_INCREMENT,
-    -> userid INTEGER, view_count INTEGER DEFAULT 0, save_count INTEGER DEFAULT 0,
-    -> content TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);
+# initial table creation:
+CREATE TABLE users (userid INTEGER PRIMARY KEY AUTO_INCREMENT, 
+	loginid INTEGER NOT NULL, level INTEGER DEFAULT 1, experience INTEGER DEFAULT 0, 
+	coins INTEGER DEFAULT 0, username TEXT, password TEXT, 
+	timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);
+
+CREATE TABLE articles (articleid INTEGER PRIMARY KEY AUTO_INCREMENT,
+	userid INTEGER, view_count INTEGER DEFAULT 0, save_count INTEGER DEFAULT 0,
+	title TEXT NOT NULL, type TEXT NOT NULL, content TEXT, 
+	timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);
+
+CREATE TABLE tags (tagid INTEGER PRIMARY KEY AUTO_INCREMENT, 
+	follow_count INTEGER DEFAULT 0, name TEXT,
+	description TEXT, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);
+
+CREATE TABLE friends (userid_1 INTEGER PRIMARY KEY, userid_2 INTEGER);
+
+CREATE TABLE messages (messageid INTEGER PRIMARY KEY AUTO_INCREMENT,
+    senderid INTEGER NOT NULL, receiverid INTEGER NOT NULL, content TEXT NOT NULL,
+    timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);
 
 # table creation upon registration:
+# no longer executed, saved for reference
 > CREATE TABLE <userid>_inbox (timestamp DATETIME PRIMARY KEY DEFAULT CURRENT_TIMESTAMP, senderid INTEGER, message TEXT);
 
 > CREATE TABLE <userid>_outbox (timestamp DATETIME PRIMARY KEY DEFAULT CURRENT_TIMESTAMP, receiverid INTEGER, message TEXT);
