@@ -18,6 +18,11 @@ export class LoginPage extends React.Component {
     };
   }
 
+// var beenThereUrl = 'http://beenthere.us-east-2.elasticbeanstalk.com/login';
+// var input = document.querySelector(".input");
+// var name = document.querySelector(".name");
+// var password = document.querySelector(".password");
+
   onLogin() {
     var self = this;
     http.post('/login', {
@@ -37,7 +42,6 @@ export class LoginPage extends React.Component {
       <View style={styles.container}>
         <Text h4> {this.state.status} </Text>
         <Text h4> </Text>
-        
         <TextInput
           onChangeText={(userid) => this.setState({ userid })}
           placeholder={'Userid'}
