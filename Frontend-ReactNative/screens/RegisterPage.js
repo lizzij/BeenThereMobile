@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import { StackNavigator } from 'react-navigation';
 import { Alert, Button, TextInput, View, StyleSheet, Text } from 'react-native';
 
 const serverUrl = 'http://beenthere.us-east-2.elasticbeanstalk.com';
@@ -19,6 +18,11 @@ export class RegisterPage extends React.Component {
       password: '',
     };
   }
+
+// var beenThereUrl = 'http://beenthere.us-east-2.elasticbeanstalk.com/login';
+// var input = document.querySelector(".input");
+// var name = document.querySelector(".name");
+// var password = document.querySelector(".password");
 
   onRegister() {
     var self = this;
@@ -40,7 +44,6 @@ export class RegisterPage extends React.Component {
         <Text h4> {this.state.status} </Text>
         <Text h4> {'Your ID is: ' + this.state.userid} </Text>
         <Text h4> </Text>
-
         <TextInput
           onChangeText={(username) => this.setState({ username })}
           placeholder={'Username'}

@@ -37,7 +37,7 @@ export class LoginPage extends React.Component {
       <View style={styles.container}>
         <Text h4> {this.state.status} </Text>
         <Text h4> </Text>
-        
+
         <TextInput
           onChangeText={(userid) => this.setState({ userid })}
           placeholder={'Userid'}
