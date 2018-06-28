@@ -98,7 +98,7 @@ def send_message(receiverid):
         cur = db.cursor()
         senderid = request.json['senderid']
         message = request.json['message']
-        cur.execute("INSERT INTO messages (senderid, receiverid, message) VALUES({}, {}, '{}')".format(int(senderid), int(receiverid), message))
+        cur.execute("INSERT INTO messages(senderid, receiverid, content) VALUES ({}, {}, '{}')".format(int(senderid), int(receiverid), message))
         db.commit()
         return jsonify(status = "message sent")
 
@@ -109,9 +109,9 @@ def get_message(userid):
         cur = db.cursor()
         cur.execute("SELECT username FROM users WHERE userid = {}".format(userid))
         username = cur.fetchone()
-        cur.execute("SELECT timestamp, senderid, message FROM messages WHERE receiverid = {}".format(int(userid)))
+        cur.execute("SELECT timestamp, senderid, content FROM messages WHERE receiverid = {}".format(userid))
         inbox = cur.fetchall()
-        cur.execute("SELECT timestamp, receiverid, message FROM messages WHERE senderid = {}".format(int(userid)))
+        cur.execute("SELECT timestamp, receiverid, content FROM messages WHERE senderid = {}".format(userid))
         outbox = cur.fetchall()
         if username:
             return jsonify(status = "retrieval success", inbox = inbox, outbox = outbox)
