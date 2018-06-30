@@ -1,18 +1,11 @@
 <html>
   <body>
-    <h2>Actions</h2>
+    <h2>Beenthere Web</h2>
     <form method="POST" action='/'>
-      <input type="text" placeholder="name" name="name">
+      <input type="text" placeholder="nickname" name="name">
+      <input type="text" placeholder="title" name="title">
       <input type="text" placeholder="message" name="message">
       <input type="submit" name="action" value="Post">
-      <input type="text" placeholder="keyword" name="keyword">
-      <input type="submit" name="action" value="Search">
-      <input type="submit" name="action" value="All">
-      <input type="submit" name="action" value="Clear">
     </form>
-    <h2>Messages</h2>
-    {% for m in messages %}
-      <p>{{m[1]}} - {{m[2]}}</p>
-    {% endfor %}
   </body>
 </html>

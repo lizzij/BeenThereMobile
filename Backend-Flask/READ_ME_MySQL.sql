@@ -15,9 +15,7 @@ mysql> USE beenthere;
 mysql> SELECT DATABASE();
 mysql> SHOW TABLES;
 
-# primary key和用户id分开，表越少越好
-
-# initial table creation:
+# primary table creation:
 CREATE TABLE users (userid INTEGER PRIMARY KEY AUTO_INCREMENT, 
 	loginid INTEGER NOT NULL, level INTEGER DEFAULT 1, experience INTEGER DEFAULT 0, 
 	coins INTEGER DEFAULT 0, username TEXT, password TEXT, 

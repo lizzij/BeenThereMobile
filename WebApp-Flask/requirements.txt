@@ -1,0 +1,16 @@
+click==6.7
+Django==2.0.5
+Flask==1.0.2
+Flask-MySQL==1.4.0
+itsdangerous==0.24
+Jinja2==2.10
+MarkupSafe==1.0
+pbr==4.0.3
+PyMySQL==0.8.1
+pytz==2018.4
+six==1.11.0
+stevedore==1.28.0
+virtualenv==16.0.0
+virtualenv-clone==0.3.0
+virtualenvwrapper==4.8.2
+Werkzeug==0.14.1

@@ -56,11 +56,6 @@ def register():
         db.commit()
         cur.execute("SELECT userid FROM users ORDER BY userid DESC LIMIT 1")
         userid = cur.fetchone()[0]
-        # cur.execute("CREATE TABLE {} (timestamp DATETIME PRIMARY KEY DEFAULT CURRENT_TIMESTAMP, senderid INTEGER, message TEXT);".format(str(userid) + "_inbox"))
-        # cur.execute("CREATE TABLE {} (timestamp DATETIME PRIMARY KEY DEFAULT CURRENT_TIMESTAMP, receiverid INTEGER, message TEXT);".format(str(userid) + "_outbox"))
-        # cur.execute("CREATE TABLE {} (userid INTEGER PRIMARY KEY, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);".format(str(userid) + "_friends"))
-        # cur.execute("CREATE TABLE {} (articleid INTEGER PRIMARY KEY, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);".format(str(userid) + "_saved_articles"))
-        # cur.execute("CREATE TABLE {} (articleid INTEGER PRIMARY KEY, timestamp DATETIME DEFAULT CURRENT_TIMESTAMP);".format(str(userid) + "_published_articles"))
         db.commit()
         return jsonify(status = "register success", userid = userid)
 
