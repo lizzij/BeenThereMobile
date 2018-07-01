@@ -1,0 +1,25 @@
+ body{
+   margin: 10;
+   padding: 10;
+   text-align: center;
+   background-image: url("images/background.png");
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+ }
+.prompts{
+  margin-top: 20;
+  color: #41435a;
+  transition: all 4% ease-in-out;
+}
+.prompts h1{
+  font-size: 24;
+  line-height: 10px;
+}
+.prompts h2{
+  font-size: 16px;
+}
+
+/* box e6dede
+placeholder afafb9
+submit 41435a */
