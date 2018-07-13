@@ -1,0 +1,11 @@
+<!--pages/publish.wxml-->
+<form bindsubmit="onSubmit">
+<view class="container">
+    <view class='row' catchtap="onFocus">
+        <textarea class='text' maxlength="5000" auto-height="true" placeholder-class="placeholder"  name="content" focus="{{focus}}" auto-focus="true" value="" placeholder="请输入留言内容" />
+    </view>
+    <view class='bottom'>
+        <button formType="submit" class='btn success'>保存</button>
+    </view>
+</view>
+</form>
