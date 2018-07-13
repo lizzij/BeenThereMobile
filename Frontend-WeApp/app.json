@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/publish/publish",
+    "pages/chat/chat",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/login/login",
+    "pages/setting/setting"
+  ],
+  "window": {
+    "padding": "100px",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "e7ddde",
+    "navigationBarTitleText": "BeenThere",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#dddddd",
+    "selectedColor": "#c1bdf0",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      { 
+        "pagePath": "pages/chat/chat",
+        "iconPath": "images/wechat.png",
+        "selectedIconPath": "images/wechatHL.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "iconPath": "images/wechat.png",
+        "selectedIconPath": "images/wechatHL.png",
+        "text": "留言"
+      },
+      {
+        "pagePath": "pages/setting/setting",
+        "iconPath": "images/wechat.png",
+        "selectedIconPath": "images/wechatHL.png",
+        "text": "我的"
+      }
+    ]
+  }
+}
