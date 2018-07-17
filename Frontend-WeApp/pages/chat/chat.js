@@ -38,3 +38,19 @@ Page({
     })
   }
 })
+
+// wx.request({
+//   url: 'http://127.0.0.1:8080/query_user',
+//   data: {
+//     goodsname: JSON.stringify(inputTyping)  //将数据格式转为JSON
+
+//   },
+//   method: "POST",
+//   header: {
+//     'content-type': 'application/x-www-form-urlencoded'
+//   },
+//   success: function (res) {
+//     console.log(res.data);
+
+//   }
+// });

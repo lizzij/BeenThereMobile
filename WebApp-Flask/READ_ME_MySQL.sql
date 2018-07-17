@@ -11,9 +11,7 @@ nc -zv beenthere.c96fpbfeupce.us-east-2.rds.amazonaws.com 3306
 mysql -h beenthere.c96fpbfeupce.us-east-2.rds.amazonaws.com -P 3306 -u hanx0621 -p
 
 # database creation:
-CREATE DATABASE beenthereWeb
-   DEFAULT CHARACTER SET utf8
-   DEFAULT COLLATE utf8_general_ci;
+CREATE DATABASE beenthereWeb DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
 
 # initial commands:
 mysql> SET NAMES utf8;
