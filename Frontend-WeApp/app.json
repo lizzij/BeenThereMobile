@@ -1,41 +1,55 @@
 {
   "pages": [
+    "pages/home/home",
     "pages/publish/publish",
     "pages/chat/chat",
     "pages/index/index",
-    "pages/logs/logs",
     "pages/login/login",
-    "pages/setting/setting"
+    "pages/logs/logs",
+    "pages/setting/setting",
+    "pages/follow/follow"
   ],
   "window": {
     "padding": "100px",
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "e7ddde",
+    "navigationBarBackgroundColor": "#E7DDDE",
     "navigationBarTitleText": "BeenThere",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "color": "#dddddd",
+    "color": "#99999d",
     "selectedColor": "#c1bdf0",
-    "borderStyle": "black",
+    "borderStyle": "white",
     "backgroundColor": "#ffffff",
     "list": [
-      { 
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "images/首页.png",
+        "selectedIconPath": "images/首页选中.png",
+        "text": "首页"
+      },
+      {
         "pagePath": "pages/chat/chat",
-        "iconPath": "images/wechat.png",
-        "selectedIconPath": "images/wechatHL.png",
+        "iconPath": "images/消息.png",
+        "selectedIconPath": "images/消息选中.png",
         "text": "消息"
       },
       {
         "pagePath": "pages/publish/publish",
-        "iconPath": "images/wechat.png",
-        "selectedIconPath": "images/wechatHL.png",
-        "text": "留言"
+        "iconPath": "images/发布.png",
+        "selectedIconPath": "images/发布.png",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "iconPath": "images/关注.png",
+        "selectedIconPath": "images/关注.png",
+        "text": "关注"
       },
       {
         "pagePath": "pages/setting/setting",
-        "iconPath": "images/wechat.png",
-        "selectedIconPath": "images/wechatHL.png",
+        "iconPath": "images/我的.png",
+        "selectedIconPath": "images/我的.png",
         "text": "我的"
       }
     ]
