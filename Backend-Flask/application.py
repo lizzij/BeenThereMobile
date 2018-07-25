@@ -24,7 +24,7 @@ mysql.init_app(application)
 
 @application.route('/')
 def home():
-    return jsonify(status = "hello world")
+    return jsonify(status="hello world")
 
 @application.route('/login', methods=['POST'])
 def login():
@@ -36,12 +36,13 @@ def login():
         cur.execute("SELECT password FROM users WHERE userid = '{}'".format(userid))
         credential = cur.fetchall()
         if not credential:
-            return jsonify(status = "user not found")
+            return jsonify(status="user not found")
         elif credential[0][0] == password:
-            return jsonify(status = "login success")
+            return jsonify(status="login success")
             # session在这里开始
         else:
-            return jsonify(status = "invalid password")
+            return jsonify(status="invalid password")
+
 
 # primary key和用户id分开，表越少越好
 
@@ -57,7 +58,8 @@ def register():
         cur.execute("SELECT userid FROM users ORDER BY userid DESC LIMIT 1")
         userid = cur.fetchone()[0]
         db.commit()
-        return jsonify(status = "register success", userid = userid)
+        return jsonify(status="register success", userid=userid)
+
 
 @application.route('/get_username/<userid>', methods=['GET'])
 def get_username(userid):
@@ -67,9 +69,10 @@ def get_username(userid):
         cur.execute("SELECT username FROM users WHERE userid = {}".format(userid))
         username = cur.fetchone()
         if username:
-            return jsonify(status = "user found", userid = userid, username = username[0])
+            return jsonify(status="user found", userid=userid, username=username[0])
         else:
-            return jsonify(status = "user not found", userid = userid, username = "")
+            return jsonify(status="user not found", userid=userid, username="")
+
 
 @application.route('/update_username/<userid>', methods=['POST'])
 def update_username(userid):
@@ -82,9 +85,11 @@ def update_username(userid):
         if old_username:
             cur.execute("UPDATE users SET username = '{}' WHERE userid = {}".format(new_username, userid))
             db.commit()
-            return jsonify(status = "update success", userid = userid, old_username = old_username[0], new_username = new_username)
+            return jsonify(status="update success", userid=userid, old_username=old_username[0],
+                           new_username=new_username)
         else:
-            return jsonify(status = "user not found", userid = userid, old_username = "", new_username = "")
+            return jsonify(status="user not found", userid=userid, old_username="", new_username="")
+
 
 @application.route('/send_message/<receiverid>', methods=['POST'])
 def send_message(receiverid):
@@ -93,9 +98,12 @@ def send_message(receiverid):
         cur = db.cursor()
         senderid = request.json['senderid']
         message = request.json['message']
-        cur.execute("INSERT INTO messages(senderid, receiverid, content) VALUES ({}, {}, '{}')".format(int(senderid), int(receiverid), message))
+        cur.execute("INSERT INTO messages(senderid, receiverid, content) VALUES ({}, {}, '{}')".format(int(senderid),
+                                                                                                       int(receiverid),
+                                                                                                       message))
         db.commit()
-        return jsonify(status = "message sent")
+        return jsonify(status="message sent")
+
 
 @application.route('/get_message/<userid>', methods=['GET'])
 def get_message(userid):
@@ -109,9 +117,10 @@ def get_message(userid):
         cur.execute("SELECT timestamp, receiverid, content FROM messages WHERE senderid = {}".format(userid))
         outbox = cur.fetchall()
         if username:
-            return jsonify(status = "retrieval success", inbox = inbox, outbox = outbox)
+            return jsonify(status="retrieval success", inbox=inbox, outbox=outbox)
         else:
-        	return jsonify(status = "user not found", inbox = [], outbox = [])
+            return jsonify(status="user not found", inbox=[], outbox=[])
+
 
 # @application.route('/get_article', methods=['GET'])
 # def get_article():
@@ -137,6 +146,7 @@ def get_message(userid):
 def close_connection(exception):
     db = mysql.connect()
     db.close()
+
 
 #####################
 # Debug mode switch #
