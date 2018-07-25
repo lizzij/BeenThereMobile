@@ -1,8 +1,6 @@
 CREATE TABLE IF NOT EXISTS user_basic (
     user_id INT PRIMARY KEY AUTO_INCREMENT,
-    user_level INT DEFAULT 1,
     user_name VARCHAR(60) UNIQUE NOT NULL,
-    password VARCHAR(16)
 );
 
 CREATE TABLE IF NOT EXISTS article_basic (
@@ -28,7 +26,9 @@ CREATE TABLE IF NOT EXISTS messages (
 );
 
 CREATE TABLE IF NOT EXISTS user_info (
-    user_id INT,
+    user_id INT PRIMARY KEY,
+    user_level INT DEFAULT 1,
+    user_experience INT DEFAULT 1,
     email VARCHAR(30),
     date_of_birth TIMESTAMP,
     register_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS user_info (
 );
 
 CREATE TABLE IF NOT EXISTS article_info (
-    article_id INT,
-    user_id INT,
+    article_id INT PRIMARY KEY,
+    user_id INT NOT NULL,
     view_count INT DEFAULT 0,
     save_count INT DEFAULT 0,
     content TEXT,
@@ -72,5 +72,11 @@ CREATE TABLE IF NOT EXISTS tag_connect (
 --         SIGNAL SQLSTATE '45000'
 --             SET MESSAGE_TEXT = 'No User or Article is connecting this tag', MYSQL_ERRNO=1001;
 --     END IF;
+-- END;
+
+-- CREATE TRIGGER user_default BEFORE INSERT
+-- ON user_basic FOR EACH ROW
+-- BEGIN
+--     INSERT INTO user_info (user_id) VALUES (new.user_id);
 -- END;
 

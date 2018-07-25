@@ -28,26 +28,19 @@ def home():
     return jsonify(status="hello world")
 
 
-@application.route('/login', methods=['POST'])
+@application.route('/login', methods=['GET'])
 def login():
     with application.app_context():
         db = mysql.connect()
         cur = db.cursor()
         request_data = json.loads(request.data)
         username = request_data['username']
-        password = request_data['password']
-        try:
-            cur.execute("SELECT password FROM user_basic WHERE user_name = '{}'".format(username))
-            credential = cur.fetchone()
-        except Exception as e:
-            print(e)
+        cur.execute("SELECT * FROM user_basic WHERE user_name = '{}'".format(username))
+        credential = cur.fetchall()
         if not credential:
             return jsonify(status="user not found")
-        if credential[0] == password:
-            return jsonify(status="login success")
-            # session在这里开始
         else:
-            return jsonify(status="invalid password")
+            return jsonify(status="login success")
 
 
 @application.route('/register', methods=['POST'])
@@ -60,6 +53,9 @@ def register():
         password = request_data['password']
         try:
             cur.execute("INSERT INTO user_basic(user_name, password) VALUES ('{}', '{}')".format(username, password))
+            cur.execute("SELECT user_id FROM user_basic WHERE user_name = '{}'".format(username))
+            userid = cur.fetchone()[0]
+            cur.execute("INSERT INTO user_info(user_id) VALUES ({})".format(userid))
             db.commit()
         except Exception as e:
             db.rollback()
@@ -69,20 +65,21 @@ def register():
         return jsonify(status="register success")
 
 
-@application.route('/get_username/<userid>', methods=['GET'])
-def get_username(userid):
+@application.route('/get_user/<username>', methods=['GET'])
+def get_user(username):
     with application.app_context():
         db = mysql.connect()
         cur = db.cursor()
-        cur.execute("SELECT username FROM users WHERE userid = {}".format(userid))
-        username = cur.fetchone()
+        cur.execute("SELECT * FROM user_basic, user_info WHERE user_name = '{}'".format(username) +
+                    "AND user_basic.user_id = user_info.user_id")
+        username = cur.fetchall()
         if username:
-            return jsonify(status="user found", userid=userid, username=username[0])
+            return jsonify(status="user found")
         else:
-            return jsonify(status="user not found", userid=userid, username="")
+            return jsonify(status="user not found")
 
 
-@application.route('/update_username/<userid>', methods=['POST'])
+@application.route('/update/<userid>', methods=['GET'])
 def update_username(userid):
     with application.app_context():
         db = mysql.connect()
@@ -106,7 +103,7 @@ def send_message(receiverid):
         cur = db.cursor()
         senderid = request.json['senderid']
         message = request.json['message']
-        cur.execute("INSERT INTO messages(senderid, receiverid, content) VALUES ({}, {}, '{}')".format(int(senderid),
+        cur.execute("INSERT INTO messages(senderid, receiverid, content) VALUES ('{}', '{}', '{}')".format(int(senderid),
                                                                                                        int(receiverid),
                                                                                                        message))
         db.commit()
