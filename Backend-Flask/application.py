@@ -1,8 +1,8 @@
 from flask import Flask, request, g, render_template, request, jsonify, redirect
 from flaskext.mysql import MySQL
+import json
 
 application = Flask(__name__)
-
 mysql = MySQL()
 
 #####################
@@ -13,7 +13,7 @@ application.config['MYSQL_DATABASE_HOST'] = 'beenthere.c96fpbfeupce.us-east-2.rd
 application.config['MYSQL_DATABASE_PORT'] = 3306
 application.config['MYSQL_DATABASE_USER'] = 'hanx0621'
 application.config['MYSQL_DATABASE_PASSWORD'] = 'password'
-application.config['MYSQL_DATABASE_DB'] = 'beenthere'
+application.config['MYSQL_DATABASE_DB'] = 'beenthereWeb'
 mysql.init_app(application)
 
 
@@ -33,34 +33,40 @@ def login():
     with application.app_context():
         db = mysql.connect()
         cur = db.cursor()
-        userid = request.json['userid']
-        password = request.json['password']
-        cur.execute("SELECT password FROM users WHERE userid = '{}'".format(userid))
-        credential = cur.fetchall()
+        request_data = json.loads(request.data)
+        username = request_data['username']
+        password = request_data['password']
+        try:
+            cur.execute("SELECT password FROM user_basic WHERE user_name = '{}'".format(username))
+            credential = cur.fetchone()
+        except Exception as e:
+            print(e)
         if not credential:
             return jsonify(status="user not found")
-        elif credential[0][0] == password:
+        if credential[0] == password:
             return jsonify(status="login success")
             # session在这里开始
         else:
             return jsonify(status="invalid password")
 
 
-# primary key和用户id分开，表越少越好
-
 @application.route('/register', methods=['POST'])
 def register():
     with application.app_context():
         db = mysql.connect()
         cur = db.cursor()
-        username = request.json['username']
-        password = request.json['password']
-        cur.execute("INSERT INTO users(username, password) VALUES ('{}', '{}')".format(username, password))
-        db.commit()
-        cur.execute("SELECT userid FROM users ORDER BY userid DESC LIMIT 1")
-        userid = cur.fetchone()[0]
-        db.commit()
-        return jsonify(status="register success", userid=userid)
+        request_data = json.loads(request.data)
+        username = request_data['username']
+        password = request_data['password']
+        try:
+            cur.execute("INSERT INTO user_basic(user_name, password) VALUES ('{}', '{}')".format(username, password))
+            db.commit()
+        except Exception as e:
+            db.rollback()
+            return jsonify(status="register failed")
+        # userid = cur.fetchone()[0]
+        # db.commit()
+        return jsonify(status="register success")
 
 
 @application.route('/get_username/<userid>', methods=['GET'])
@@ -131,6 +137,7 @@ def get_article():
         cur = db.cursor()
     pass
 
+
 # @application.route('/publish_article', methods=['POST'])
 # def publish_article():
 #     pass
@@ -158,4 +165,4 @@ def close_connection(exception):
 #####################
 
 if __name__ == '__main__':
-    application.run(host='0.0.0.0', debug=True)
+    application.run(host='127.0.0.1', debug=True)
