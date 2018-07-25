@@ -24,32 +24,14 @@ app.config['WX_SECRET'] = 'c99528c1af5f23f40f3a3712b612e8b5'
 db = SQLAlchemy(app)
 wxapp.init_app(app)
 
-
-class login_status(db.Model):
-    __tablename__ = 'login_status'
-    openid = db.Column(db.VARCHAR(128), primary_key=True, nullable=False, index=True)
-    session_key = db.Column(db.VARCHAR(256), nullable=False)
-    login_status = db.Column(db.VARCHAR(128), nullable=False)
-    expire_time = db.Column(db.TIMESTAMP, nullable=False)
-
-    def __init__(self, openid, session_key):
-        self.openid = openid
-        self.session_key = session_key
-        self.expire_time = datetime.datetime.now() + datetime.timedelta(hours=12)
-        pass
-
-    def __repr__(self):
-        return '<User %s>' % self.openid
-
-    def save(self):
-        db.session.add(self)
-        db.commit()
+pool = redis.ConnectionPool(host='localhost', port=6379, decode_responses=True)
+r = redis.Redis(connection_pool=pool)
 
 
-@app.route('/onLogin', methods=['POST'])
+@app.route('/auth/onLogin', methods=['POST'])
 def onLogin():
     # 获取code
-    args = json.load(request.data)
+    args = json.loads(request.data)
     # 编写微信服务器端的校验请求
     js_code = args['code']
     # appid = app.config['WX_APPID']
@@ -61,11 +43,30 @@ def onLogin():
     # wx_respond = urllib2.urlopen(wx_req).read()
     wx_respond = wxapp.jscode2session(js_code)
     # 根据微信服务器回执在数据库建立自定义登录态
-    res = json.load(wx_respond.data)
-    if not res['errmsg']:
+    if not wx_respond['errmsg']:
+        openid = wx_respond['openid']
+        session_key = wx_respond['session_key']
         login_session = wxapp.gen_3rd_session_key()
-    return json.dump(wx_respond)
+        r.mset(openid=openid, session_key=session_key, login_session=login_session)
+        return json.dumps({'login_session': login_session})
+    else:
+        return json.dumps(wx_respond)
+
+
+@app.route('/auth/checkSession', methods=['POST'])
+def checkSession():
+    pass
+
+
+@app.route('/article/publish', methods=['POST'])
+def publish():
+    pass
+
+
+@app.route('/article/remove', methods=['POST'])
+def remove():
+    pass
 
 
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
