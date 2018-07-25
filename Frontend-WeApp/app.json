@@ -1,13 +1,13 @@
 {
   "pages": [
-    "pages/home/home",
     "pages/publish/publish",
+    "pages/home/home",
     "pages/chat/chat",
     "pages/index/index",
     "pages/login/login",
     "pages/logs/logs",
     "pages/setting/setting",
-    "pages/follow/follow"
+    "pages/search/search"
   ],
   "window": {
     "padding": "100px",
@@ -29,10 +29,10 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/chat/chat",
-        "iconPath": "images/消息.png",
-        "selectedIconPath": "images/消息选中.png",
-        "text": "消息"
+        "pagePath": "pages/search/search",
+        "iconPath": "images/搜索.png",
+        "selectedIconPath": "images/搜索.png",
+        "text": "搜索"
       },
       {
         "pagePath": "pages/publish/publish",
@@ -41,10 +41,10 @@
         "text": "发布"
       },
       {
-        "pagePath": "pages/publish/publish",
-        "iconPath": "images/关注.png",
-        "selectedIconPath": "images/关注.png",
-        "text": "关注"
+        "pagePath": "pages/chat/chat",
+        "iconPath": "images/消息.png",
+        "selectedIconPath": "images/消息选中.png",
+        "text": "消息"
       },
       {
         "pagePath": "pages/setting/setting",
