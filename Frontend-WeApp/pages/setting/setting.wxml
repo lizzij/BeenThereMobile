@@ -1,43 +1,16 @@
 <!--pages/setting/setting.wxml-->
 <view class="page">
-<view class="weui-cells weui-cells_after-title">
-
-      <view class="weui-cell">
-          <view class="weui-uploader__input-box">
-              <view class="weui-uploader__input" bindtap="chooseImage"></view>
-          </view>
-          <view class="weui-cell__bd">
-              <view style="position: absolute;left: 6.1em; top: 1.3em; font-size: 18px; font-weight: 400;">头像</view>
-              <view style="position: absolute;left: 8.2em; top: 4.3em; font-size: 13px; font-weight: 310; color: #B2B2B2;">点击图片设置头像</view>
-          </view>
-      </view>
-
-      <view class="weui-cell weui-cell_input">
-          <view class="weui-cell__hd">
-              <view class="weui-label">用户名</view>
-          </view>
-          <view class="weui-cell__bd">
-              <input class="weui-input" placeholder-class="phstyle" placeholder="设置用户名"/>
-          </view>
-      </view>
-
-      <view class="weui-cell">
-          <view class="weui-cell__bd">
-              <textarea class="weui-textarea" placeholder-class="phstyle" placeholder="简介" style="height: 5.8em" />
-          </view>
-      </view>
-</view>
-
-<view class='bottom'>
-    <button formType="submit" class='btn success'>发布</button>
-</view>
-
-<view class="weui-footer">
-    <view class="weui-footer__links">
-        <view class="weui-footer__text">注册即代表阅读并同意
-            <navigator url="" class="weui-footer__link">使用条款</navigator>
-            <navigator url="" class="weui-footer__link">隐私政策</navigator>
+    <view class="page__bd">
+        <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+                <view class="weui-uploader__input-box">
+                    <view class="weui-uploader__input" bindtap="chooseImage"></view>
+                </view>
+                <view class="weui-cell__bd">
+                    <view>头像</view>
+                    <view style="font-size: 13px;color: #9B9B9B;">点击图片设置头像</view>
+                </view>
+            </view>
         </view>
     </view>
-</view>
 </view>

@@ -1,7 +1,1 @@
 /* pages/search/search.wxss */
-page{
-    padding-top: 30rpx;
-    background-color: #white;
-    font-size: 18px;
-    font-family: -apple-system-font,PingFangSC,Helvetica Neue,Helvetica,sans-serif;
-}
