@@ -20,8 +20,14 @@ db = client.beenthere
 
 # 创建数据表
 login_log = db.login_log
-expire_index = pymongo.IndexModel([("expire_time", pymongo.ASCENDING)], expireAfterSeconds=60)
-login_log.create_indexes([expire_index])
+feeds = db.feeds
+
+# 建立索引与约束
+openid_index = pymongo.IndexModel([("openid", pymongo.TEXT)], unique=True)
+expire_index = pymongo.IndexModel([("expire_time", pymongo.ASCENDING)], unique=True, expireAfterSeconds=180)
+title_index = pymongo.IndexModel([("title", pymongo.TEXT)], unique=True)
+login_log.create_indexes([expire_index, openid_index])
+feeds.create_indexes([title_index])
 
 
 @app.route('/auth/Login', methods=['POST'])
@@ -35,7 +41,7 @@ def onLogin():
     try:
         js_code = args['code']
     except:
-        return json.dumps({"status": "invalid request of checkLogin, please send the code"})
+        return json.dumps({"status": "invalid request, please send the code"})
     # 编写微信服务器端的校验请求(框架已经实现）
     wx_respond = wxapp.jscode2session(js_code)
     # 根据微信服务器回执在数据库建立自定义登录态
@@ -56,36 +62,50 @@ def onLogin():
         # code不正确时，返回微信服务器给的错误json
 
 
-@app.route('/auth/checkLogin', methods=['POST'])
-def checkLogin():
-    """
-    检验传来的登录态，即login_session是否仍然有效，若失效则应重新执行登录操作
-    :return:
-    """
-    # 前端传来session
-    args = json.loads(request.data)
-    try:
-        login_session = args['login_session']
-    except:
-        return json.dumps({"status": "invalid request of checkLogin, please send the login session"})
-    check = login_log.find({"login_session": login_session}, {"session_key": 1, "expire_time": 1})
-    if check.retrieved == 1:
-        return json.dumps({"status": "not expire"})
-    elif check.retrieved > 1:
-        return json.dumps({"status": "backend wrong"})
-    else:
-        return json.dumps({"status": "expired"})
-    pass
-
-
 @app.route('/article/publish', methods=['POST'])
 def publish():
-    pass
+    """
+    发布一条留言，后端将标题（唯一），内容，用户openid存在mongodb中，返回发布状态
+    :return:
+    """
+    args = json.loads(request.data)
+    check_openid = session_check(args)
+    if check_openid == "invalid request":
+        return json.dumps({"status": "invalid request, please send login session"})
+    elif not check_openid:
+        return json.dumps({"status": "login expired"})
+    else:
+        try:
+            feed = {'openid': check_openid,
+                    "title": args["title"],
+                    "login_session": args["content"],
+                    "create_time": datetime.datetime.now()}
+            feeds.insert(feed)
+            return json.dumps({"status": "feed published"})
+        except:
+            return json.dumps({"status": "invalid feed"})
 
 
 @app.route('/article/remove', methods=['POST'])
 def remove():
     pass
+
+
+def session_check(args):
+    """
+    检查发布的业务请求中是否带有login_session
+    :param args:
+    :return:
+    """
+    try:
+        login_session = args['login_session']
+        check = login_log.find({"login_session": login_session}, {"session_key": 1, "expire_time": 1})
+        if check.retrieved == 1:
+            return check[0]["session_key"]
+        else:
+            return False
+    except:
+        return "invalid request"
 
 
 if __name__ == '__main__':
