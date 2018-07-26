@@ -32,6 +32,11 @@ login_log.create_indexes([expire_index, openid_index])
 feeds.create_indexes([title_index])
 
 
+@app.route('/', methods=['GET', 'POST'])
+def connection_check():
+    return 'helloworld'
+
+
 @app.route('/auth/Login', methods=['POST'])
 def onLogin():
     """
@@ -111,4 +116,4 @@ def session_check(args):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='localhost', port=5000, debug=True)
