@@ -5,13 +5,13 @@ App({
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-
     // 登录
     wx.login({
       success: function(res) {
         if (res.code){
           wx.request({
-            url:'https://localhost:5000/auth/Login',
+            url:'http://localhost:5000/auth/Login',
+            method:'POST',
             data:{
               code:res.code
             }
@@ -20,9 +20,9 @@ App({
           console.log('login failed')
         }
       }
-      res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
+      // res => {
+      //   // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      // }
     })
     // 获取用户信息
     wx.getSetting({

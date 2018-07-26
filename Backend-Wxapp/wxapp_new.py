@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding:utf8 -*-
 from flask import Flask, request
-from flask_wxapp import WXApp
+from flask_wxapp import WXApp, gen_3rd_session_key
 import json
 import datetime
 import pymongo
@@ -28,7 +28,7 @@ feeds = db.feeds
 
 # 建立索引与约束
 openid_index = pymongo.IndexModel([("openid", pymongo.TEXT)], unique=True)
-expire_index = pymongo.IndexModel([("expire_time", pymongo.ASCENDING)], unique=True, expireAfterSeconds=180)
+expire_index = pymongo.IndexModel([("expire_time", pymongo.ASCENDING)], unique=True, expireAfterSeconds=1800)
 title_index = pymongo.IndexModel([("title", pymongo.TEXT)], unique=True)
 login_log.create_indexes([expire_index, openid_index])
 feeds.create_indexes([title_index])
@@ -55,14 +55,14 @@ def onLogin():
     # 编写微信服务器端的校验请求(框架已经实现）
     wx_respond = wxapp.jscode2session(js_code)
     # 根据微信服务器回执在数据库建立自定义登录态
-    if not wx_respond['errmsg']:
+    if 'errmsg' not in wx_respond.keys():
         openid = wx_respond['openid']
         session_key = wx_respond['session_key']
-        login_session = wxapp.gen_3rd_session_key()
+        login_session = gen_3rd_session_key()
         login_event = {'openid': openid,
                        "session_key": session_key,
                        "login_session": login_session,
-                       "expire_time": datetime.datetime.utcnow() + datetime.timedelta(seconds=60)}
+                       "expire_time": datetime.datetime.utcnow() + datetime.timedelta(seconds=1800)}
         # 在mongodb中记录本次登录事件
         login_log.insert(login_event)
         return json.dumps({"status": "login success", 'login_session': login_session})
