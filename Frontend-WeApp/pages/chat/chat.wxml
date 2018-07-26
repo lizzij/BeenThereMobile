@@ -1,0 +1,79 @@
+<!--pages/chat.wxml-->
+<view class="page">
+    <view class="page__bd">
+        <view class="weui-tab">
+            <view class="weui-navbar">
+                <block wx:for="{{tabs}}" wx:key="*this">
+                    <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+                        <view class="weui-navbar__title">{{item}}</view>
+                    </view>
+                </block>
+                <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+            </view>
+            <view class="weui-tab__panel">
+                <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+                  <image src="/images/photo.png" style="width: 22px; height: 17.2px;" />
+                  <image src="/images/emoji.png" style="width: 14.3px; height: 14.2px;" />
+                  <image src="/images/send.png" style="width: 24px; height: 21px;"/>
+                  <view>chat</view>
+                  <view class="weui-cells weui-cells_after-title">
+                      <view class="weui-cell weui-cell_input">
+                          <view class="weui-cell__bd">
+                              <input class="weui-input" placeholder="请输入文本" />
+                          </view>
+                      </view>
+                  </view>
+                </view>
+
+                <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+
+                  <view class="weui-cells weui-cells_after-title">
+                        <view class="weui-cell">
+                            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                                <image src="/images/profile.png" style="width: 50px; height: 50px; display: block"/>
+                                <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">8</view>
+                            </view>
+                            <view class="weui-cell__hd_in">
+                              <view style="position: absolute;left: 4.7em;top: 0.5em;">
+                                <text style="font-size: 13px;color: #41435C;">橙子丹尼</text>
+                                <text style="font-size: 13px;color: #9B9B9B;font-weight:300;">  给你的求助留言“内容”</text>
+                              </view>
+                              <text style="font-size: 10px;color: #9B9B9B;font-weight:300;position: absolute;left: 8em;top: 5em;">07-26</text>
+                            </view>
+                        </view>
+
+                        <view class="weui-cell">
+                            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                                <image src="/images/profile.png" style="width: 50px; height: 50px; display: block"/>
+                                <view class="weui-badge" style="position: absolute;top: -.4em;right: -.4em;">2</view>
+                            </view>
+                            <view class="weui-cell__hd_in">
+                              <view style="position: absolute;left: 4.7em;top: 0.5em;">
+                                <text style="font-size: 13px;color: #41435C;">卡卡</text>
+                                <text style="font-size: 13px;color: #9B9B9B;font-weight:300;">  给你的求助留言“内容”</text>
+                              </view>
+                              <text style="font-size: 10px;color: #9B9B9B;font-weight:300;position: absolute;left: 8em;top: 5em;">07-25</text>
+                            </view>
+                        </view>
+
+                        <view class="weui-cell">
+                            <view class="weui-cell__hd" style="position: relative;margin-right: 10px;">
+                                <image src="/images/profile.png" style="width: 50px; height: 50px; display: block"/>
+                            </view>
+                            <view class="weui-cell__hd_in">
+                              <view style="position: absolute;left: 4.7em;top: 0.5em;">
+                                <text style="font-size: 13px;color: #41435C;">遇见</text>
+                                <text style="font-size: 13px;color: #9B9B9B;font-weight:300;">  给你的求助留言“内容”</text>
+                              </view>
+                              <text style="font-size: 10px;color: #9B9B9B;font-weight:300;position: absolute;left: 8em;top: 5em;">05-21</text>
+                            </view>
+                        </view>
+
+                    </view>
+
+                </view>
+
+            </view>
+        </view>
+    </view>
+</view>
