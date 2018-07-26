@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding:utf8 -*-
 from flask import Flask, request
 from flask_wxapp import WXApp
 import json
