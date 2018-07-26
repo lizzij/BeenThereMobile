@@ -1,0 +1,57 @@
+{
+  "pages": [
+    "pages/publish/publish",
+    "pages/home/home",
+    "pages/chat/chat",
+    "pages/index/index",
+    "pages/login/login",
+    "pages/logs/logs",
+    "pages/setting/setting",
+    "pages/search/search"
+  ],
+  "window": {
+    "padding": "100px",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#E7DDDE",
+    "navigationBarTitleText": "BeenThere",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#99999d",
+    "selectedColor": "#c1bdf0",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "iconPath": "images/首页.png",
+        "selectedIconPath": "images/首页选中.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/search/search",
+        "iconPath": "images/搜索.png",
+        "selectedIconPath": "images/搜索.png",
+        "text": "搜索"
+      },
+      {
+        "pagePath": "pages/publish/publish",
+        "iconPath": "images/发布.png",
+        "selectedIconPath": "images/发布.png",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/chat/chat",
+        "iconPath": "images/消息.png",
+        "selectedIconPath": "images/消息选中.png",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/setting/setting",
+        "iconPath": "images/我的.png",
+        "selectedIconPath": "images/我的.png",
+        "text": "我的"
+      }
+    ]
+  }
+}
