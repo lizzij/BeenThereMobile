@@ -11,7 +11,7 @@ App({
       success: function(res) {
         if (res.code){
           wx.request({
-            url = 'https://0.0.0.0:5000/auth/Login',
+            url:'https://localhost:5000/auth/Login',
             data:{
               code:res.code
             }
