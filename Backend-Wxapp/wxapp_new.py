@@ -64,11 +64,14 @@ def onLogin():
                        "login_session": login_session,
                        "expire_time": datetime.datetime.utcnow() + datetime.timedelta(seconds=1800)}
         # 在mongodb中记录本次登录事件
-        login_log.insert(login_event)
+        try:
+            login_log.insert(login_event) # 数据库中存在过这条数据时，进行异常处理，将改变expire的时间
+        except:
+            pass
         return json.dumps({"status": "login success", 'login_session': login_session})
         # code正确时，返回第三方session，同时将登录信息记录到服务器中
     else:
-        return json.dumps({"status": "login failed", "error": wx_respond})
+        return json.dumps(wx_respond)
         # code不正确时，返回微信服务器给的错误json
 
 

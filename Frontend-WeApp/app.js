@@ -14,10 +14,13 @@ App({
             method:'POST',
             data:{
               code:res.code
+            },
+            success: function(res){
+              console.log(res.data)
             }
           })
         } else {
-          console.log('login failed')
+          console.log('login failed' + res.errMsg)
         }
       }
       // res => {
