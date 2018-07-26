@@ -1,4 +1,5 @@
 <!--pages/publish.wxml-->
+
 <form bindsubmit="onSubmit">
 <view class="container">
     <view class='title'><input name="title" placeholder-class="placeholder" placeholder="输入题目" value="" /></view>
