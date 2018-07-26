@@ -8,21 +8,21 @@ App({
 
     // 登录
     wx.login({
-      // success: function(res) {
-      //   if (res.code){
-      //     wx.request({
-      //       url = 'https://0.0.0.0:5000/auth/Login',
-      //       data:{
-      //         code:res.code
-      //       }
-      //     })
-      //   } else {
-      //     console.log('login failed')
-      //   }
-      // }
-      // res => {
-      //   // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      // }
+      success: function(res) {
+        if (res.code){
+          wx.request({
+            url = 'https://0.0.0.0:5000/auth/Login',
+            data:{
+              code:res.code
+            }
+          })
+        } else {
+          console.log('login failed')
+        }
+      }
+      res => {
+        // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      }
     })
     // 获取用户信息
     wx.getSetting({
