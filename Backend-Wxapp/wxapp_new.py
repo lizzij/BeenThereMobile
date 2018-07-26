@@ -4,16 +4,21 @@ import json
 import datetime
 import pymongo
 
-wxapp = WXApp()
+# flask配置
 app = Flask(__name__)
 app.config['WX_APPID'] = 'wx06ecc62f568b317f'
 app.config['WX_SECRET'] = 'c99528c1af5f23f40f3a3712b612e8b5'
 # 域名 beenthere.space
 
+# 示例化app
+wxapp = WXApp()
 wxapp.init_app(app)
+
+# 创建mongodb数据库
 client = pymongo.MongoClient('localhost', 27017)
 db = client.beenthere
 
+# 创建数据表
 login_log = db.login_log
 expire_index = pymongo.IndexModel([("expire_time", pymongo.ASCENDING)], expireAfterSeconds=60)
 login_log.create_indexes([expire_index])
