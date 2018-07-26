@@ -1,7 +1,8 @@
+
 /* pages/publish.wxss */
 page{
     width: 100%;
-    height: 75%;
+    height: 74%;
 }
 .container{
     padding-top: 30rpx;
@@ -45,6 +46,7 @@ page{
 .bottom{
     width: 100%;
     background: #fff;
+    opacity: 1;
     display: flex;
     flex-flow:row nowrap;
     justify-content: center;
@@ -56,9 +58,10 @@ page{
     padding-top: 10rpx;
     padding-bottom: 10rpx;
     margin: 30rpx 30rpx;
+    font-weight: 400;
 }
 .btn.success{
-    background: #d8d8d8;
+    background: #f9c683;
     color: #fff;
 }
 .btn.del{

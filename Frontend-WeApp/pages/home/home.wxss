@@ -1,0 +1,77 @@
+.tag {
+  position: relative;
+}
+.tag_image {
+  width:28pt;
+  height:12pt;
+}
+.tag_name{
+  font-size: 9px;
+  color: #9B9B9B;
+  align-items: center;
+  position: absolute;
+  left: 9.8px;
+  top: 6.5px;
+  right: 0;
+  bottom: 0;
+}
+.link {
+  font-size: 9.5px;
+  color: #F9C683;
+  font-weight: lighter;
+  align-items: center;
+  position: absolute;
+  left: 57px;
+  top: 160px;
+  right: 0;
+  bottom: 0;
+}
+.follow {
+  position: absolute;
+  left: 293px;
+  top: 30px;
+  right: 0;
+  bottom: 0;
+}
+.follow_sign {
+  position: absolute;
+  width: 9px;
+  height: 8px;
+  left: 7pt;
+  top: 5pt;
+  right: 0pt;
+  bottom: 0pt;
+}
+.follow_word {
+  font-size: 9.5px;
+  color: #ffffff;
+  align-items: center;
+  position: absolute;
+  left: 22px;
+  top: 4.4px;
+  right: 0;
+  bottom: 0;
+}
+.follow_word_not {
+  font-size: 9.5px;
+  color: #F9C683;
+  align-items: center;
+  position: absolute;
+  left: 22px;
+  top: 4.4px;
+  right: 0;
+  bottom: 0;
+}
+.follow_image {
+  width: 52px;
+  height: 20px;
+}
+.share {
+  position: absolute;
+  left: 348px;
+  top: 30px;
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+}

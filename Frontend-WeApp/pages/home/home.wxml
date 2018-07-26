@@ -1,0 +1,46 @@
+<view class="weui-panel weui-panel_access">
+    <view class="weui-panel__bd">
+
+        <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <image class="weui-media-box__thumb" src="/images/smallProfile.png" />
+            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title">我和我的四拨前任们</view>
+                <view class="follow">
+                  <image class="follow_image" src="/images/tagSelected.png" />
+                  <view class="follow_word">关注</view>
+                </view>
+                <image class="share" src="/images/share.png" />
+                <view class="tag">
+                    <image class="tag_image" src="/images/tag.png" />
+                    <view class="tag_name">职场</view>
+                </view>
+                <view class="weui-media-box__desc">“Sky is the limit.”</view>
+            </view>
+            <navigator url="" class="link">展开</navigator>
+        </navigator>
+
+        <navigator url="" class="weui-media-box weui-media-box_appmsg" hover-class="weui-cell_active">
+            <view class="weui-media-box__hd weui-media-box__hd_in-appmsg">
+                <image class="weui-media-box__thumb" src="/images/smallProfile.png" />
+            </view>
+            <view class="weui-media-box__bd weui-media-box__bd_in-appmsg">
+                <view class="weui-media-box__title">留学九年，竟成流浪汉</view>
+                <view class="follow">
+                  <image class="follow_image" src="/images/tagToFollow.png" />
+                  <image class="follow_sign" src="/images/follow.png" />
+                  <view class="follow_word_not">关注</view>
+                </view>
+                <image class="share" src="/images/share.png" />
+                <view class="tag">
+                    <image class="tag_image" src="/images/tag.png" />
+                    <view class="tag_name">回家</view>
+                </view>
+                <view class="weui-media-box__desc">大学毕业后做兼职，习惯去工作地点附近的public library学习一段时间再回家。那天正好是感恩节前几天，即使是在圣地亚哥这个温暖的城市，室外的温度也达到了玩手机会觉得手被冻僵的程度。</view>
+            </view>
+            <navigator url="" class="link">展开</navigator>
+        </navigator>
+
+    </view>
+</view>
