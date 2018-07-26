@@ -15,10 +15,12 @@ app.config['WX_SECRET'] = 'c99528c1af5f23f40f3a3712b612e8b5'
 # 示例化app
 wxapp = WXApp()
 wxapp.init_app(app)
+print("... WXapp Initiate Complete")
 
 # 创建mongodb数据库
 client = pymongo.MongoClient('localhost', 27017)
 db = client.beenthere
+print("... Mongodb Initiate Complete")
 
 # 创建数据表
 login_log = db.login_log
@@ -30,6 +32,12 @@ expire_index = pymongo.IndexModel([("expire_time", pymongo.ASCENDING)], unique=T
 title_index = pymongo.IndexModel([("title", pymongo.TEXT)], unique=True)
 login_log.create_indexes([expire_index, openid_index])
 feeds.create_indexes([title_index])
+print("... Database Config Complete")
+
+
+@app.route('/', methods=['GET', 'POST'])
+def connection_check():
+    return json.dumps("Hello World")
 
 
 @app.route('/auth/Login', methods=['POST'])
@@ -111,4 +119,4 @@ def session_check(args):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='localhost', port=5000, debug=True)
