@@ -1,12 +1,12 @@
 # BeenThereMobile
 Mobile app & WeChat mini app for BeenThere startup, provide online buddy service for mental wellbeing.
 
-### Mobile App
+## Mobile App
 <div align="center">
   <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/BeenThereDemo2.1.gif" width="400" />
 </div>
 
-### WeChat WeApp
+## WeChat WeApp
 <p float="left">
   <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/5.留言页.png" width="267" />
   <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/6.消息.png" width="267" />
@@ -23,12 +23,12 @@ Mobile app & WeChat mini app for BeenThere startup, provide online buddy service
   <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/1.更换头像.png" width="267" />
 </p>
 
-### Login-page
+## Login-page
 <div align="center">
   <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/loginPageDemo.png" width="400" />
 </div>
 
-### Scrum Board
+## Scrum Board
 <div align="center">
   <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/scrum.png" width="400" />
 </div>
