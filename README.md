@@ -25,10 +25,10 @@ Mobile app & WeChat mini app for BeenThere startup, provide online buddy service
 
 ## Login-page
 <div align="center">
-  <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/loginPageDemo.png" width="400" />
+  <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/loginPageDemo.png" width="700" />
 </div>
 
 ## Scrum Board
 <div align="center">
-  <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/scrum.png" width="400" />
+  <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/scrum.png" width="700" />
 </div>
