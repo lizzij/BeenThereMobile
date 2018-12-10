@@ -28,7 +28,7 @@ Home page, messages, chats, write post, publish post (add tags), change profile.
   <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/BeenThereFrontEnd.gif" width="400" />
 </div>
 
-## Login-page
+## Mobile App Login-page
 <div align="center">
   <img src="https://github.com/lizzij/BeenThereMobile/raw/master/img/loginPageDemo.png" width="882" />
 </div>
